@@ -1,0 +1,221 @@
+# reel-edit
+
+*Part of [husein-skills](https://github.com/huseinaa/husein-skills), all my Claude Code skills in one repo.*
+
+This is the Claude Code skill that edits my reels. I film the takes, drop them in a folder, type one
+command, and get a finished video with a cover. It used to take me three 3-hour editing slots a week.
+Now it takes one command.
+
+Here's how to install it and use it on your own videos, with your own brand.
+
+---
+
+## What it does
+
+You give it a folder with the takes you filmed on your phone. It:
+
+1. **Joins your takes** in the order you filmed them and cuts the dead air at the start and end of each one.
+2. **Cleans your voice.** It removes background noise and room echo, and sets the volume to the level Instagram and YouTube expect.
+3. **Writes captions from what you actually said.** It listens to the audio, not your script, and times every caption to your words.
+4. **Picks an edit style** from five (CLEAN, PUNCH, EXPLAINER, DEMO, OFFER) based on what you're saying.
+5. **Adds the visuals.** A text hook in a white pill, stationary 3-4-word captions, and real screenshots, screen recordings or explanatory graphics where they help. It mixes the layout by the size of what's shown: a small floating card over your face for a logo or a number, a split with your face in a vertical rectangle for something to read (on a light background, on your own footage blurred, or a hard edge-to-edge split), the screen first with your face small at the top left for a demo, a full-screen takeover for a big reveal, or you cut out and standing in front of a post you're explaining. Zooms are optional. It keeps all of it inside the area Instagram doesn't cover.
+6. **Makes the cover:** a frame of you smiling, your logo and the title.
+7. **Exports** a 1080x1920 video ready to post on Reels, Shorts or TikTok.
+
+It can also **learn from reels you like.** Give it 3 to 5 links and it studies how they're edited
+(pacing, cuts, where the text sits, what's shown on screen) and keeps the lessons for your edits,
+without copying their lines, graphics or music.
+
+If you don't like something, tell it in plain words ("the card covers my face", "that cut is too
+tight") and it fixes it. It also writes down what you corrected, so it doesn't make the same
+mistake twice.
+
+Or fix it yourself: every finished reel can open in [Open Recorder](https://github.com/huseinaa/open-recorder)
+(free, Windows) as a timeline cut at every join. Trim, restore footage from your raw takes, add
+B-roll, export (it lands next to the reel), and the skill learns from what you changed.
+
+---
+
+## What you need
+
+- **Claude Code.** It needs a paid Claude plan. I use it inside VS Code, but the terminal works too.
+- **Python 3.10 or newer:** [python.org/downloads](https://www.python.org/downloads/)
+- **ffmpeg**, the video engine:
+  - Windows: `winget install Gyan.FFmpeg`
+  - Mac: `brew install ffmpeg`
+- **Microsoft Edge or Google Chrome.** The graphics are drawn in the browser.
+
+The transcription runs on your own computer, so you don't need an extra AI subscription for it.
+
+---
+
+## Install (about 10 minutes)
+
+**1. Download the skill**
+
+The quick way, one line (needs [Node.js](https://nodejs.org)):
+
+```
+npx skills add huseinaa/husein-skills --skill reel-edit -g
+```
+
+That installs it into Claude Code's skills folder (it asks which agents you use). Skip to step 3.
+
+Or with git, so a `git pull` updates it later:
+
+```
+git clone https://github.com/huseinaa/husein-skills.git
+```
+
+No git? On the [repo page](https://github.com/huseinaa/husein-skills), click **Code > Download ZIP** and unzip it.
+
+**2. Put it where Claude Code looks for skills** (only if you used git or the ZIP)
+
+From inside the clone, run the installer with the skill's name. It links the folder into
+`~/.claude/skills/`, so a `git pull` updates the skill you use:
+
+- Windows (PowerShell): `powershell -ExecutionPolicy Bypass -File install.ps1 reel-edit`
+- Mac / Linux: `./install.sh reel-edit`
+
+Or copy the `skills/reel-edit` folder into `~/.claude/skills/` yourself (then an update means copying it again).
+
+**3. Install the Python packages**
+
+```
+pip install faster-whisper playwright pillow numpy
+```
+
+Optional: `pip install onnxruntime` for the cut-out layout (you standing in front of a graphic). Its
+matting model (about 14 MB) downloads by itself the first time it's used.
+
+Optional: [Open Recorder](https://github.com/huseinaa/open-recorder) 2.2 or later, installed into the
+same Python, to fix cuts yourself on a timeline after an edit.
+
+**4. Download the speech model** (about 480 MB, one time)
+
+```
+python -c "from faster_whisper import download_model; import os; download_model('small', output_dir=os.path.expanduser('~/.cache/faster-whisper-small'))"
+```
+
+**5. Check everything**
+
+```
+python ~/.claude/skills/reel-edit/scripts/doctor.py
+```
+
+Every line should say `OK`. A `MISS` line tells you exactly what to install.
+
+---
+
+## Update an existing installation
+
+Run `git pull` inside your husein-skills clone. If you linked it (step 2), that's it.
+
+Installed with `npx skills`? Run `npx skills update reel-edit`. Copy your `local/` folder somewhere
+safe first, in case the update replaces the whole skill folder.
+
+If you copied the folder, copy the updated files over again, keeping your `local/` folder,
+`deltas.md`, `history/` and any sound files. Your own files are never in the repo, so a pull never
+overwrites them.
+
+The editing lessons and their adoption choices are documented in
+[`references/natural-editing.md`](references/natural-editing.md).
+
+---
+
+## Add your brand
+
+Create `local/brand.json` inside the skill folder with the keys you want to change (start from a copy of
+`brand.json`). It is laid on top of the defaults, and `local/` is never committed, so your
+brand survives every update. Fonts, explanatory graphics and covers read from it. Hooks, top takeaways, CTAs and default captions stay white with a thin dark outline:
+
+| Setting | What it changes |
+|---|---|
+| `colors` | Your palette. `primary` is the cover fade and title boxes, `bright` is for explanatory UI, `highlight` is an optional diagram accent, `error` is for wrong or broken things |
+| `fonts` | Your font names and the Google Fonts link that loads them |
+| `logo` | A PNG of your logo, shown at the top of the cover, for example `local/logo.png` |
+| `follow_line` | The line in your plain-text follow CTA |
+| `caption_language` | `en`, or `ar` for Arabic captions (English words stay in English letters) |
+| `browser` | `msedge` or `chrome` |
+
+The easy way: open Claude Code and say *"set up my brand in the reel-edit skill: my colors are ...,
+my font is ..., my logo is this file"*, and it fills in the file for you.
+
+Optional and off by default: the rising sound under the hook isn't included because its license doesn't allow sharing
+the file. `assets/sfx/SOURCE.md` says where to get it for free. Without it, everything
+still works.
+
+**Your own process** goes in `local/WORKFLOW.md`: where your scripts live, where finished
+reels should be filed, your CTAs, extra steps. The skill reads it first on every run, and its rules
+win over the defaults.
+
+---
+
+## How to film for it
+
+- **One folder per reel.** Name it like the video, for example `Reels/Why your app breaks`.
+- **Film in order, as many takes as you want.** Stop between sentences if you need to. Messed up a
+  line? Just say it again: it keeps the last complete one.
+- **Screen recordings or clips you want shown:** put them in the same folder and start the name with
+  `broll`, like `broll - my dashboard.mp4`.
+- Have a script? Paste it when you run the skill. It's used for spelling and the hook, but the
+  captions always come from what you actually said.
+
+---
+
+## Use it
+
+In Claude Code:
+
+```
+/reel-edit "Reels/Why your app breaks"
+```
+
+Optional extras, in plain words:
+
+```
+/reel-edit "Reels/Why your app breaks" style=explainer hook="Your app isn't ready"
+```
+
+You get, inside the reel's folder:
+
+- `<name> - edited.mp4`, the reel
+- `<name> - cover.jpg`, the cover
+- a short report covering the style it picked, the hook, the beat plan, and **any words it wasn't sure
+  about** (check these, especially if you speak a dialect)
+
+Then just talk to it: *"make the list slower"*, *"move the card up, it covers my eyes"*, *"use the
+second take for the intro"*. It edits and re-renders only what changed.
+
+---
+
+## Learn from reels you like
+
+```
+/reel-edit references https://www.instagram.com/reel/... https://www.instagram.com/reel/... https://www.instagram.com/reel/...
+```
+
+It downloads each reel (needs `pip install yt-dlp`; if Instagram asks for a login, download the reel
+yourself and give it the file instead), makes a contact sheet of every second, measures the cuts,
+the speaking pace and the loudness, and looks at all of it. Then it writes what those reels have in
+common into `local/style.md`, which every later edit reads.
+
+One rule it holds to: **take inspiration, don't copy.** It records how a reel is edited, never what it
+says or shows, and a habit has to show up in at least 2 of the reels before it counts. Your own
+corrections always win over anything it learned this way.
+
+---
+
+## Good to know
+
+- **Check the words it flags.** The speech model is good but not perfect, especially on accents and
+  mixed languages.
+- **Rendering takes a few minutes per reel.** Faster on a good computer.
+- **It needs internet to render**, because the fonts load from Google Fonts.
+- **Built and tested on Windows.** It should work on Mac too, and `doctor.py` tells you if anything is
+  missing.
+
+---
+
+Built by Husein Aboul Hasan, [unemployedhusein.com](https://unemployedhusein.com). If you make something with it,
+send it to me. Follow for more tips on building proper software with AI.

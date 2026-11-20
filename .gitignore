@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Media
+*.mp4
+*.mov
+
+# Your own settings and data per skill (never committed)
+skills/*/local/
+.reel-edit/
+
+# reel-edit: personal files and licensed sounds
+skills/reel-edit/assets/logo.png
+skills/reel-edit/assets/sfx/*.wav
+skills/reel-edit/deltas.md
+skills/reel-edit/history/
+
+# OS
+.DS_Store
+Thumbs.db

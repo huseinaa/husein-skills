@@ -1,0 +1,11 @@
+{
+  "coverage_min": 80,
+  "mutation_min": 70,
+  "max_mutants": 40,
+  "mutant_timeout_s": 120,
+  "complexity_max": 10,
+  "function_lines_max": 50,
+  "nesting_max": 4,
+  "max_fix_rounds": 3,
+  "small_change_lines": 20
+}
