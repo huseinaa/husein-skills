@@ -7,6 +7,12 @@ YouTube draft. It's a thin router on top of my brother Hasan's open-source edito
 **[claude-youtube-editor](https://github.com/hassancs91/claude-youtube-editor)**. His repo does the
 actual work. This skill finds it, sets it up the first time, and sends each request to the right step.
 
+Two ways to have the editor:
+
+- **Bundled:** install the [youtube-editor](../youtube-editor/) skill too (it comes with "install all").
+  It's Hasan's editor packaged as a skill, and this skill uses it automatically.
+- **Your own clone of Hasan's repo**, so a `git pull` gets his newest updates the day he ships them.
+
 ---
 
 ## What it does
@@ -57,7 +63,8 @@ powershell -ExecutionPolicy Bypass -File install.ps1 youtube-edit   # Windows
 
 **2. Run it once.** Type `/youtube-edit` in Claude Code. On the first run it:
 
-- asks where the editor is, or clones it for you, and remembers the path in the skill's `local/config.json`
+- uses the bundled youtube-editor skill if it's installed. If not, it asks where your clone is (or clones
+  it for you) and remembers the path in the skill's `local/config.json`
 - creates the Python venv and installs the Remotion packages
 - asks you to copy `.env.example` to `.env` and fill in your keys (it never makes up a key or commits `.env`)
 - runs **brand setup**, so your visuals use your own look and not Hasan's house brand

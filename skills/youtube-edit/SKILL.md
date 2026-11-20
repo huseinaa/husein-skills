@@ -13,9 +13,12 @@ follow them, they are the source of truth.**
 ## Before anything
 
 1. If `local/WORKFLOW.md` exists next to this SKILL.md, read it first. Its rules win over the defaults below.
-2. Find the editor repo (called `<repo>` below):
+2. Find the editor repo (called `<repo>` below), first match wins:
    - `local/config.json` next to this SKILL.md, key `editor_repo`, if it exists.
-   - Otherwise ask the user once where it is. If they don't have it, offer to clone it:
+   - The bundled **youtube-editor** skill: a sibling folder `../youtube-editor` next to this skill's folder
+     (or `~/.claude/skills/youtube-editor`) that holds `CLAUDE.md` and `.claude/skills/clean-cut/`. Use it as
+     `<repo>` and follow its SKILL.md.
+   - Otherwise ask the user once where their clone is. If they don't have it, offer to clone it:
      `git clone https://github.com/hassancs91/claude-youtube-editor.git` into a folder they pick
      (default: their home folder). Then write the path into `local/config.json` as
      `{"editor_repo": "<absolute path>"}` so you never ask again. `local/` is never committed.

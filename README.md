@@ -13,7 +13,8 @@ They also work in other agents that read skills, like Codex and Cursor.
 |---|---|
 | [**reel-edit**](skills/reel-edit/) | Turns the takes you filmed on your phone into a finished vertical reel: cuts, clean voice, word-synced captions, hook, graphics, B-roll and a cover. |
 | [**feature-testing**](skills/feature-testing/) | Checks a finished feature without you reading every line: writes missing tests, measures coverage, plants bugs on purpose to prove the tests catch them, fixes what fails. |
-| [**youtube-edit**](skills/youtube-edit/) | One command for the full YouTube pipeline, from raw footage to a private draft, on top of Hasan's [claude-youtube-editor](https://github.com/hassancs91/claude-youtube-editor). |
+| [**youtube-editor**](skills/youtube-editor/) | The full YouTube editor as a skill: raw talking-head footage to a private YouTube draft, with the cut, Remotion visuals, voice cleanup, SFX, titles, thumbnails and upload. By my brother Hasan Aboul Hasan ([claude-youtube-editor](https://github.com/hassancs91/claude-youtube-editor)). |
+| [**youtube-edit**](skills/youtube-edit/) | One `/youtube-edit` command that runs Hasan's editor: the bundled youtube-editor skill, or your own clone of his repo for his newest updates. |
 | [**app-store-screenshots**](skills/app-store-screenshots/) | Designs App Store and Play Store screenshot sets that look like the best on the store. By Charles Liu. |
 | [**frankenstein-method**](skills/frankenstein-method/) | Finds the best-performing topics and formats from your competitors' Reels and gives you one idea page. Method by Moussari. |
 
@@ -80,8 +81,12 @@ overwrites it.
 
 ## License
 
-[MIT](LICENSE) for my skills. Two skills here are other people's work, shared with credit:
+[MIT](LICENSE) for my skills. Three skills here are other people's work, shared with credit:
 
+- **youtube-editor** is my brother Hasan Aboul Hasan's
+  [claude-youtube-editor](https://github.com/hassancs91/claude-youtube-editor), under his MIT license
+  ([skills/youtube-editor/LICENSE](skills/youtube-editor/LICENSE)). Its sound and music clips come with his
+  repo, and their sources are in `media/library/*/catalog.json`.
 - **app-store-screenshots** is by Charles Liu, from
   [charles-skills](https://github.com/LemonFace0309/charles-skills), under its own MIT license
   ([skills/app-store-screenshots/LICENSE](skills/app-store-screenshots/LICENSE)).
