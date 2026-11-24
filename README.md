@@ -13,6 +13,7 @@ They also work in other agents that read skills, like Codex and Cursor.
 |---|---|
 | [**reel-edit**](skills/reel-edit/) | Turns the takes you filmed on your phone into a finished vertical reel: cuts, clean voice, word-synced captions, hook, graphics, B-roll and a cover. |
 | [**feature-testing**](skills/feature-testing/) | Checks a finished feature without you reading every line: writes missing tests, measures coverage, plants bugs on purpose to prove the tests catch them, fixes what fails. |
+| [**security-audit**](skills/security-audit/) | Reviews your web app against the 12 Security Checks, with source-linked findings, a scorecard, and prioritized fixes. |
 | [**youtube-editor**](skills/youtube-editor/) | The full YouTube editor as a skill: raw talking-head footage to a private YouTube draft, with the cut, Remotion visuals, voice cleanup, SFX, titles, thumbnails and upload. By my brother Hasan Aboul Hasan ([claude-youtube-editor](https://github.com/hassancs91/claude-youtube-editor)). |
 | [**youtube-edit**](skills/youtube-edit/) | One `/youtube-edit` command that runs Hasan's editor: the bundled youtube-editor skill, or your own clone of his repo for his newest updates. |
 | [**app-store-screenshots**](skills/app-store-screenshots/) | Designs App Store and Play Store screenshot sets that look like the best on the store. By Charles Liu. |
